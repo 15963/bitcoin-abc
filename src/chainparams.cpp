@@ -67,8 +67,7 @@ static CBlock CreateGenesisBlock(const char *pszTimestamp,
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce,
                                  uint32_t nBits, int32_t nVersion,
                                  const Amount genesisReward) {
-    const char *pszTimestamp =
-        "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+    const char* pszTimestamp = "rrnc init at 2018.05.06 11:30";
     const CScript genesisOutputScript =
         CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909"
                               "a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112"
@@ -99,17 +98,17 @@ public:
     CMainParams() {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 210000;
-        consensus.BIP34Height = 227931;
+        consensus.BIP34Height = 0;
         consensus.BIP34Hash = uint256S(
-            "000000000000024b89b42a942fe0d9fea3bb44ab7bd1b19115dd6a759c0808b8");
+            "0X00");
         // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
-        consensus.BIP65Height = 388381;
+        consensus.BIP65Height = 0;
         // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
-        consensus.BIP66Height = 363725;
+        consensus.BIP66Height = 0;
         consensus.antiReplayOpReturnSunsetHeight = 530000;
         consensus.antiReplayOpReturnCommitment = GetAntiReplayCommitment();
         consensus.powLimit = uint256S(
-            "00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+            "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         // two weeks
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60;
         consensus.nPowTargetSpacing = 10 * 60;
@@ -137,12 +136,12 @@ public:
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S(
-            "00000000000000000000000000000000000000000096be820973e0c3d70f437e");
+            "0x00");
 
         // By default assume that the signatures in ancestors of this block are
         // valid.
         consensus.defaultAssumeValid = uint256S(
-            "000000000000000001ad94189e956f1c1c28c8c34d2aae9bb8ce0c7f2b93b287");
+            "0x00");
 
         // August 1, 2017 hard fork
         consensus.uahfHeight = 478558;
@@ -172,19 +171,17 @@ public:
         nDefaultPort = 8333;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1231006505, 2083236893, 0x1d00ffff, 1,
-                                     50 * COIN);
+        genesis = CreateGenesisBlock(1525577400, 962804, 0x1e0ffff0, 1, 50 * COIN);
+
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock ==
-               uint256S("000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1"
-                        "b60a8ce26f"));
-        assert(genesis.hashMerkleRoot ==
-               uint256S("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b"
-                        "7afdeda33b"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000de780bec99c6f18d6da3059976b371e2fa7da846bdeb0fb0e62038b1b6c"));
+        assert(genesis.hashMerkleRoot == uint256S("0xaf455316a218ae518be423dcc2a5fa6c072257215ebabee7fb4b8f419f52252b"));
+
 
         // Note that of those with the service bits flag, most only support a
         // subset of possible options.
         // Bitcoin ABC seeder
+        /*
         vSeeds.push_back(
             CDNSSeedData("bitcoinabc.org", "seed.bitcoinabc.org", true));
         // bitcoinforks seeders
@@ -202,6 +199,7 @@ public:
         // criptolayer.net
         vSeeds.push_back(
             CDNSSeedData("criptolayer.net", "seeder.criptolayer.net", true));
+        */
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<uint8_t>(1, 0);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<uint8_t>(1, 5);
@@ -220,38 +218,7 @@ public:
 
         checkpointData = {
             .mapCheckpoints = {
-                {11111, uint256S("0000000069e244f73d78e8fd29ba2fd2ed618bd6fa2ee"
-                                 "92559f542fdb26e7c1d")},
-                {33333, uint256S("000000002dd5588a74784eaa7ab0507a18ad16a236e7b"
-                                 "1ce69f00d7ddfb5d0a6")},
-                {74000, uint256S("0000000000573993a3c9e41ce34471c079dcf5f52a0e8"
-                                 "24a81e7f953b8661a20")},
-                {105000, uint256S("00000000000291ce28027faea320c8d2b054b2e0fe44"
-                                  "a773f3eefb151d6bdc97")},
-                {134444, uint256S("00000000000005b12ffd4cd315cd34ffd4a594f430ac"
-                                  "814c91184a0d42d2b0fe")},
-                {168000, uint256S("000000000000099e61ea72015e79632f216fe6cb33d7"
-                                  "899acb35b75c8303b763")},
-                {193000, uint256S("000000000000059f452a5f7340de6682a977387c1701"
-                                  "0ff6e6c3bd83ca8b1317")},
-                {210000, uint256S("000000000000048b95347e83192f69cf0366076336c6"
-                                  "39f9b7228e9ba171342e")},
-                {216116, uint256S("00000000000001b4f4b433e81ee46494af945cf96014"
-                                  "816a4e2370f11b23df4e")},
-                {225430, uint256S("00000000000001c108384350f74090433e7fcf79a606"
-                                  "b8e797f065b130575932")},
-                {250000, uint256S("000000000000003887df1f29024b06fc2200b55f8af8"
-                                  "f35453d7be294df2d214")},
-                {279000, uint256S("0000000000000001ae8c72a0b0c301f67e3afca10e81"
-                                  "9efa9041e458e9bd7e40")},
-                {295000, uint256S("00000000000000004d9b4ef50f0f9d686fd69db2e03a"
-                                  "f35a100370c64632a983")},
-                // UAHF fork block.
-                {478558, uint256S("0000000000000000011865af4122fe3b144e2cbeea86"
-                                  "142e8ff2fb4107352d43")},
-                // Nov, 13 DAA activation block.
-                {504031, uint256S("0000000000000000011ebf65b60d0a3de80b8175be70"
-                                  "9d653b4c1a1beeb6ab9c")},
+                {-1, uint256S("0x0")}
             }};
 
         // Data as of block
@@ -259,10 +226,10 @@ public:
         // (height 523992).
         chainTxData = ChainTxData{
             // UNIX timestamp of last known number of transactions.
-            1522608016,
+            0,
             // Total number of transactions between genesis and that timestamp
             // (the tx=... number in the SetBestChain debug.log lines)
-            248589038,
+            0,
             // Estimated number of transactions per second after that timestamp.
             3.2};
     }
